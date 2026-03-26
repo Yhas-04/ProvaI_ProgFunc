@@ -8,7 +8,7 @@
 
 ## Como rodar
 
-### No navegador (com interface)
+### No navegador (com interface para filtrar os top itens de cada categoria)
 
 npx serve .
 ```
