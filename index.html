@@ -2,85 +2,10 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Top 5 por categoria</title>
+  <title>funcao</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main>
-    <p class="classe1">Pipeline 1</p>
-    <h1>Top 5 produtos <em>por categoria</em></h1>
-
-    <div class="filtros" id="filtros"></div>
-
-    <div class="card">
-      <ul id="lista"></ul>
-    </div>
-  </main>
-
-  <script type="module">
-    import {
-      filtrarPorValorMinimo,
-      filtrarPorCategoria,
-      ordenarPorValor,
-      pegarTopN
-    } from './funcoes.js';
-
-    const pipe = (...fns) => (valor) =>
-      fns.reduce((resultado, fn) => fn(resultado), valor);
-
-    const topProdutosDaCategoria = (categoria) => pipe(
-      filtrarPorCategoria(categoria),
-      filtrarPorValorMinimo(500),
-      ordenarPorValor,
-      pegarTopN(5)
-    );
-
-    const vendas = await fetch('./vendas.json').then(r => r.json());
-
-    const lista = document.getElementById('lista');
-    const filtros = document.getElementById('filtros');
-
-    const categorias = [...new Set(vendas.map(v => v.categoria))];
-    let categoriaAtiva = categorias[0];
-
-    categorias.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.textContent = cat;
-      btn.dataset.cat = cat;
-      btn.classList.add('chip');
-      if (cat === categoriaAtiva) btn.classList.add('active');
-
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        categoriaAtiva = cat;
-        renderizar();
-      });
-
-      filtros.appendChild(btn);
-    });
-
-    function renderizar() {
-      lista.innerHTML = '';
-
-      const resultado = topProdutosDaCategoria(categoriaAtiva)(vendas);
-
-      if (resultado.length === 0) {
-        lista.innerHTML = '<li>Nenhum produto acima de R$ 500 nesta categoria.</li>';
-        return;
-      }
-
-      resultado.forEach((venda, i) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <span>#${i + 1} ${venda.produto}</span>
-          <strong>R$ ${venda.valor.toLocaleString('pt-BR')}</strong>
-        `;
-        lista.appendChild(li);
-      });
-    }
-
-    renderizar();
-  </script>
+  
 </body>
 </html>
