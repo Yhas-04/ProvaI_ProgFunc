@@ -1,9 +1,5 @@
 // AULA 1 — Funções de Transformação
-import fs from 'fs';
-
-const vendas = JSON.parse(
-  fs.readFileSync('./vendas.json', 'utf-8')
-);
+let vendas = [];
 
 // PASSO 2: Funções de filtragem
 
@@ -34,6 +30,12 @@ export const ordenarPorValor = (lista) =>
 export const pegarTopN = (n) => (lista) => lista.slice(0, n);
 
 // PASSO 4: Testes com console.assert
+if (typeof window === 'undefined') {
+  const fs = await import('fs');
+
+  const vendas = JSON.parse(
+    fs.readFileSync('./vendas.json', 'utf-8')
+  );
 
 console.assert(
   filtrarPorValorMinimo(1000)(vendas).length === 16,
@@ -98,4 +100,4 @@ console.assert(
 );
 
 console.log("Todos os testes passaram!");
-
+}

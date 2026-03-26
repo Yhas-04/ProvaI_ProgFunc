@@ -23,7 +23,10 @@
       filtrarPorCategoria,
       ordenarPorValor,
       pegarTopN
-    } from './funcoes.js';
+    } from './analise.js';
+
+    const vendas = await fetch('./vendas.json').then(r => r.json());
+
 
     const pipe = (...fns) => (valor) =>
       fns.reduce((resultado, fn) => fn(resultado), valor);
@@ -34,8 +37,6 @@
       ordenarPorValor,
       pegarTopN(5)
     );
-
-    const vendas = await fetch('./vendas.json').then(r => r.json());
 
     const lista = document.getElementById('lista');
     const filtros = document.getElementById('filtros');
